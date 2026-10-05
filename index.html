@@ -1,0 +1,1358 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSAJ — Brand Guidelines | راهنمای برند اساج</title>
+<meta name="description" content="OSAJ Consultancy brand identity handoff — logo suite, anatomy, typography, color system, usage rules, and downloadable files. Bilingual EN/FA.">
+<link rel="icon" type="image/svg+xml" href="assets/svg/osaj-logo-emblem-latin.svg">
+<style>
+/* OD-LAYOUT-PRIMITIVES v1 — structure only: display, flex/grid, overflow, wrapping, ratio.
+   Put this @layer first; product CSS outside the layer always wins. */
+@layer od-layout {
+  :where(.od-stack,.od-row,.od-row-top,.od-cluster,.od-grid,.od-field,.od-stat,.od-cell,.od-tile) > :where(*) { min-width: 0; }
+
+  /* containers */
+  .od-stack   { display: flex; flex-direction: column; gap: var(--od-gap, 8px); }
+  .od-row     { display: flex; align-items: center; gap: var(--od-gap, 8px); }
+  .od-row-top { display: flex; align-items: flex-start; gap: var(--od-gap, 8px); }
+  .od-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--od-gap, 8px); }
+  .od-fill    { flex: 1 1 0; min-width: 0; }
+  .od-fixed   { flex: none; }
+  .od-grid    { display: grid; gap: var(--od-gap, 12px); grid-template-columns: repeat(var(--od-cols, 3), minmax(0, 1fr)); }
+
+  /* stacked information: each piece is its own line — never sibling inline spans */
+  .od-stat, .od-field, .od-cell { display: grid; gap: var(--od-gap, 2px); }
+  :where(.od-stat,.od-field,.od-cell) > :where(*) { display: block; }
+  .od-tile { display: grid; grid-template-rows: auto 1fr; }
+  :where(.od-tile) > :where(*) { display: block; }
+
+  /* media keeps its intrinsic ratio by default; never a distorted or cropped
+     cover by accident. height:auto lets the ratio win over an <img height="…">
+     attribute. Cropping to a uniform box is an explicit opt-in: set --od-ratio
+     AND add .od-media-cover together (per the core rule, only where a crop is
+     deliberate — tile thumbs, decorative fills — never on full-frame content). */
+  .od-media { display: block; width: 100%; height: auto; aspect-ratio: var(--od-ratio, auto); }
+  .od-media-cover { object-fit: cover; }
+
+  /* data text only — authored copy is rewritten to its budget instead */
+  .od-truncate { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .od-clamp-2, .od-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .od-clamp-2 { -webkit-line-clamp: 2; }
+  .od-clamp-3 { -webkit-line-clamp: 3; }
+  .od-lines-2 { min-height: calc(2 * 1.4em); }   /* block-level reservation for a shared baseline */
+  .od-nowrap  { white-space: nowrap; }           /* numerals + units · price + suffix · date + weekday */
+  .od-keep    { word-break: keep-all; overflow-wrap: anywhere; }
+
+  /* screen skeleton (optional) */
+  .od-screen { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; }
+  .od-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+
+  /* horizontal rail */
+  .od-rail { display: flex; gap: var(--od-gap, 8px); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none;
+             padding-inline: var(--od-rail-pad, 16px); scroll-padding-inline: var(--od-rail-pad, 16px); }
+  .od-rail::-webkit-scrollbar { display: none; }
+  :where(.od-rail) > :where(*) { flex: none; scroll-snap-align: start; }
+  :where(.od-rail) > :where(:last-child) { margin-inline-end: var(--od-rail-pad, 16px); }
+
+  .od-spacer { flex: none; visibility: hidden; pointer-events: none; }
+  .od-touch  { min-width: 44px; min-height: 44px; }
+}
+/* /OD-LAYOUT-PRIMITIVES v1 */
+
+:root{
+  --navy:#1F2F49;
+  --navy-2:#253148;
+  --slate:#67757E;
+  --gold:#B89555;
+  --khaki:#C2B1A2;
+  --linen:#F5EDE2;
+  --bg:#F9F6F0;
+  --surface:#FFFFFF;
+  --ink:var(--navy);
+  --ink-muted:#56626B;
+  --line:rgba(31,47,73,.14);
+  --radius:10px;
+  --radius-lg:16px;
+  --shadow:0 12px 32px rgba(31,47,73,.08);
+  --maxw:1140px;
+  --font-display:'Roboto',system-ui,'Segoe UI',Arial,sans-serif;
+  --font-text:'Inter Tight',system-ui,'Segoe UI',Arial,sans-serif;
+  --fa-display:'Doran','Estedad',system-ui,sans-serif;
+  --fa-text:'Estedad','Doran',system-ui,sans-serif;
+}
+
+/* ---------- fonts ---------- */
+@font-face{font-family:'Doran';src:url('assets/fonts/Doran-Thin.woff') format('woff');font-weight:100;font-style:normal;font-display:swap}
+@font-face{font-family:'Doran';src:url('assets/fonts/Doran-Light.woff') format('woff');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Doran';src:url('assets/fonts/Doran-Regular.woff') format('woff');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Doran';src:url('assets/fonts/Doran-Medium.woff') format('woff');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Doran';src:url('assets/fonts/Doran-Bold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Doran';src:url('assets/fonts/Doran-ExtraBold.woff') format('woff');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-Thin.ttf') format('truetype');font-weight:100;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-ExtraLight.ttf') format('truetype');font-weight:200;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-ExtraBold.ttf') format('truetype');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Estedad';src:url('assets/fonts/Estedad-Black.ttf') format('truetype');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('assets/fonts/InterTight-300.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('assets/fonts/InterTight-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('assets/fonts/InterTight-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('assets/fonts/InterTight-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Roboto';src:url('assets/fonts/Roboto-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Roboto';src:url('assets/fonts/Roboto-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-text);font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+html[lang="fa"] body{font-family:var(--fa-text);line-height:1.9}
+img{max-width:100%}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.2;margin:0;font-weight:700}
+html[lang="fa"] :is(h1,h2,h3,h4){font-family:var(--fa-display);line-height:1.45}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:24px}
+.sec{padding:96px 0}
+.sec + .sec{padding-top:0}
+.kicker{
+  display:block;font-family:var(--font-display);font-size:13px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+}
+html[lang="fa"] .kicker{letter-spacing:0}
+.sec h2{font-size:clamp(30px,4vw,40px)}
+.sec-lead{max-width:64ch;color:var(--ink-muted);margin-top:16px;font-size:17px}
+.sec-head{margin-bottom:48px}
+.skip{
+  position:absolute;inset-inline-start:16px;top:-56px;z-index:60;background:var(--navy);color:var(--linen);
+  padding:10px 16px;border-radius:8px;transition:top .2s ease-out;text-decoration:none;font-size:14px;
+}
+.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(249,246,240,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;transition:border-color .2s ease-out, box-shadow .2s ease-out;
+}
+.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 4px 20px rgba(31,47,73,.06)}
+.nav-inner{display:flex;align-items:center;gap:24px;height:68px}
+.nav-brand img{height:26px;width:auto;display:block}
+.nav-links{display:flex;gap:4px;margin-inline-start:auto}
+.nav-links a{
+  text-decoration:none;font-size:14.5px;font-weight:500;color:var(--ink-muted);
+  padding:8px 12px;border-radius:8px;transition:color .18s ease-out, background-color .18s ease-out;
+}
+@media (hover:hover){
+  .nav-links a:hover{color:var(--navy);background:rgba(31,47,73,.06)}
+}
+.lang{display:flex;gap:2px;background:rgba(31,47,73,.06);border-radius:999px;padding:3px;margin-inline-start:12px}
+.lang button{
+  border:0;background:transparent;cursor:pointer;font:inherit;font-size:13.5px;font-weight:500;
+  color:var(--ink-muted);padding:6px 14px;border-radius:999px;min-height:36px;
+  transition:background-color .18s ease-out, color .18s ease-out;
+}
+.lang button[aria-pressed="true"]{background:var(--navy);color:var(--linen)}
+
+/* ---------- cover ---------- */
+.cover{
+  min-height:calc(92vh - 68px);display:grid;place-items:center;text-align:center;padding:72px 0 48px;
+}
+.cover-mark{height:clamp(200px,28vh,280px);width:auto;margin-bottom:40px}
+.cover h1{font-size:clamp(38px,6vw,64px);letter-spacing:-.01em}
+.cover-tagline{
+  margin-top:20px;color:var(--slate);font-size:clamp(17px,2.4vw,21px);font-weight:500;letter-spacing:.14em;
+}
+html[lang="fa"] .cover-tagline{letter-spacing:0}
+.cover-meta{
+  margin:48px auto 0;display:flex;justify-content:center;gap:clamp(28px,6vw,72px);text-align:start;
+}
+.cover-meta .od-stat{gap:6px}
+.cover-meta .stat-v{font-family:var(--font-display);font-weight:700;font-size:18px}
+.cover-meta .stat-l{font-size:13px;color:var(--ink-muted);letter-spacing:.08em;text-transform:uppercase}
+html[lang="fa"] .cover-meta .stat-l{letter-spacing:0}
+.scroll-cue{
+  margin-top:64px;display:inline-flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--ink-muted);font-size:13px;text-decoration:none;
+}
+.scroll-cue svg{animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ---------- stats ---------- */
+.stats{--od-gap:24px}
+.stats .od-stat{gap:4px}
+.stat-v{font-family:var(--font-display);font-weight:700;font-size:clamp(34px,4vw,44px);color:var(--navy);white-space:nowrap}
+.stat-l{font-size:14px;color:var(--ink-muted)}
+
+/* ---------- cards & suite ---------- */
+.group-h{
+  font-size:14px;font-weight:500;color:var(--ink-muted);letter-spacing:.14em;text-transform:uppercase;
+  margin:56px 0 20px;display:flex;align-items:center;gap:16px;
+}
+html[lang="fa"] .group-h{letter-spacing:0}
+.group-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.cards{--od-gap:20px;display:grid;gap:var(--od-gap);grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
+  overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease-out, box-shadow .25s ease-out;
+}
+@media (hover:hover){
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+}
+.card.dark{background:var(--navy);border-color:rgba(245,237,226,.12)}
+.artbox{
+  min-height:200px;display:grid;place-items:center;padding:32px 28px;
+}
+.card.dark .artbox{background:var(--navy)}
+.art{width:auto;height:auto;max-width:100%;max-height:180px}
+.art.pattern{max-height:150px;border-radius:6px}
+.card-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 18px;border-top:1px solid var(--line);
+}
+.card.dark .card-foot{border-top-color:rgba(245,237,226,.12)}
+.card-name{font-size:14.5px;font-weight:500}
+.card.dark .card-name{color:var(--linen)}
+.mini{
+  display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;
+  font:inherit;font-size:13px;font-weight:500;color:var(--ink-muted);
+  border:1px solid var(--line);background:transparent;border-radius:8px;padding:7px 12px;min-height:34px;
+  transition:color .18s ease-out, border-color .18s ease-out, background-color .18s ease-out;
+}
+.card.dark .mini{color:rgba(245,237,226,.8);border-color:rgba(245,237,226,.22)}
+@media (hover:hover){
+  .mini:hover{color:var(--navy);border-color:var(--navy);background:rgba(31,47,73,.05)}
+  .card.dark .mini:hover{color:var(--linen);border-color:var(--linen);background:rgba(245,237,226,.08)}
+}
+.mini svg{flex:none}
+
+/* ---------- anatomy ---------- */
+.anatomy-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+.an-art{
+  position:relative;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius-lg);display:grid;place-items:center;padding:56px 40px;overflow:hidden;min-height:420px;
+}
+.an-art .bgpat{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.05;pointer-events:none}
+.an-art .an-mark{position:relative;height:300px;width:auto}
+.legend{--od-gap:28px}
+.leg{display:flex;gap:18px;align-items:flex-start}
+.leg .num{
+  flex:none;width:36px;height:36px;border-radius:999px;display:grid;place-items:center;
+  background:var(--navy);color:var(--linen);font-family:var(--font-display);font-weight:700;font-size:15px;
+}
+.leg:nth-child(2) .num{background:var(--gold)}
+.leg h3{font-size:19px;margin-bottom:6px}
+.leg p{color:var(--ink-muted);max-width:44ch}
+
+/* ---------- typography ---------- */
+.typo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.typo-panel{border-radius:var(--radius-lg);padding:40px;border:1px solid var(--line)}
+.tp-fa{background:var(--navy);color:var(--linen)}
+.tp-en{background:var(--surface)}
+.tp-lang{font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.72}
+html[lang="fa"] .tp-lang{letter-spacing:0}
+.glyph{font-size:104px;line-height:1;margin:24px 0 8px;font-weight:700}
+.tp-fa .glyph{font-family:var(--fa-display)}
+.tp-en .glyph{font-family:var(--font-display)}
+.tp-roles{display:grid;gap:12px;margin-top:24px}
+.tp-role{display:flex;justify-content:space-between;gap:16px;font-size:15px;padding-bottom:12px;border-bottom:1px solid rgba(127,127,127,.2)}
+.tp-role b{font-weight:600}
+.tp-fa .tp-role{border-bottom-color:rgba(245,237,226,.18)}
+.tp-fa .tp-role b{font-family:var(--fa-display);font-weight:500}
+.tp-en .tp-role b{font-family:var(--font-display);font-weight:500}
+.tp-weights{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{
+  font-size:12.5px;font-weight:500;padding:5px 12px;border-radius:999px;
+  border:1px solid rgba(127,127,127,.28);color:inherit;white-space:nowrap;
+}
+.tp-fa .chip{border-color:rgba(245,237,226,.28)}
+.tp-fam{margin-top:18px}
+.tp-fam-t{display:block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.66;margin-bottom:8px}
+html[lang="fa"] .tp-fam-t{letter-spacing:0}
+.tp-fam .tp-weights{margin-top:0}
+a.chip{cursor:pointer;text-decoration:none;transition:border-color .18s ease-out, background-color .18s ease-out}
+@media (hover:hover){a.chip:hover{border-color:var(--gold);background:rgba(184,149,85,.12)}}
+.pair-note{margin-top:20px;font-size:14px;opacity:.8}
+.scale{margin-top:56px}
+.scale table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.scale th,.scale td{text-align:start;padding:14px 20px;border-bottom:1px solid var(--line);font-size:15px}
+.scale tr:last-child td{border-bottom:0}
+.scale th{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);font-weight:500}
+html[lang="fa"] .scale th{letter-spacing:0}
+.scale .lv{font-family:var(--font-display);font-weight:700}
+.scale .lv.t-h1{font-size:34px}.scale .lv.t-h2{font-size:28px}.scale .lv.t-h3{font-size:22px}
+.scale .lv.t-h4{font-size:18px;font-weight:500}.scale .lv.t-body{font-size:16px;font-weight:400;font-family:var(--font-text)}
+html[lang="fa"] .scale .lv{font-family:var(--fa-display)}
+html[lang="fa"] .scale .lv.t-body{font-family:var(--fa-text)}
+
+/* ---------- palette ---------- */
+.pal-grid{--od-gap:20px;display:grid;gap:var(--od-gap);grid-template-columns:repeat(5,1fr)}
+.color-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.swatch{height:104px}
+.sw-body{padding:16px;display:grid;gap:10px}
+.sw-name{font-weight:600;font-size:15px}
+.hexbtn{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;
+  font:inherit;font-size:14px;font-weight:500;letter-spacing:.04em;cursor:pointer;
+  border:1px solid var(--line);background:var(--bg);color:var(--navy);
+  border-radius:8px;padding:8px 12px;transition:border-color .18s ease-out, background-color .18s ease-out;
+}
+html[lang="fa"] .hexbtn{letter-spacing:0}
+@media (hover:hover){
+  .hexbtn:hover{border-color:var(--navy);background:rgba(31,47,73,.05)}
+}
+.spec{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-muted);white-space:nowrap}
+.spec b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.bal-wrap{margin-top:56px}
+.bal{display:flex;height:48px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.bal i{display:block;height:100%}
+.bal-labels{display:flex;margin-top:10px;gap:4px}
+.bal-labels span{font-size:12.5px;color:var(--ink-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bal-note{margin-top:14px;color:var(--ink-muted);font-size:14.5px;max-width:60ch}
+.combos{--od-gap:20px;display:grid;gap:var(--od-gap);grid-template-columns:repeat(4,1fr);margin-top:20px}
+.combo{border-radius:var(--radius-lg);border:1px solid var(--line);overflow:hidden}
+.combo-view{height:110px;display:grid;place-items:center;font-family:var(--font-display);font-size:34px;font-weight:700}
+html[lang="fa"] .combo-view{font-family:var(--fa-display);font-size:28px}
+.combo-cap{padding:10px 14px;font-size:13px;background:var(--surface);color:var(--ink-muted);display:flex;justify-content:space-between;gap:8px}
+.combo-cap b{color:var(--ink);font-weight:500;white-space:nowrap}
+
+/* ---------- usage ---------- */
+.usage-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.use-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:36px}
+.use-panel h3{font-size:20px;margin-bottom:8px}
+.use-panel>p{color:var(--ink-muted);font-size:14.5px;max-width:52ch}
+.cs-demo{
+  margin-top:28px;display:grid;place-items:center;padding:34px;border:1.5px dashed var(--gold);
+  border-radius:12px;background:
+    linear-gradient(var(--bg),var(--bg)) padding-box;
+}
+.cs-demo img{height:110px;width:auto}
+.cs-tag{margin-top:14px;text-align:center;font-size:12.5px;color:var(--gold);font-weight:500;letter-spacing:.08em}
+html[lang="fa"] .cs-tag{letter-spacing:0}
+.min-rows{margin-top:28px;display:grid;gap:20px}
+.min-row{display:flex;align-items:center;gap:20px}
+.min-demo{
+  flex:none;width:150px;height:84px;display:grid;place-items:center;background:var(--bg);
+  border:1px solid var(--line);border-radius:10px;
+}
+.min-demo img{width:auto}
+.dodont{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.dd h4{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.dd ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.dd li{display:flex;gap:10px;font-size:14.5px;color:var(--ink-muted);align-items:flex-start}
+.dd li svg{flex:none;margin-top:3px}
+.dd.do li svg{color:var(--gold)}
+.dd.dont li svg{color:var(--slate)}
+.pat-note{
+  margin-top:20px;padding:14px 18px;border-radius:10px;background:var(--bg);border:1px solid var(--line);
+  font-size:14px;color:var(--ink-muted);
+}
+
+/* ---------- files (dark) ---------- */
+.on-dark{background:var(--navy);color:var(--linen);padding:96px 0}
+.on-dark .sec-lead,.on-dark .stat-l{color:rgba(245,237,226,.72)}
+.files-wrap{position:relative}
+.files-wrap .bgpat{position:absolute;inset-inline-end:0;top:0;width:420px;max-width:45%;height:100%;object-fit:cover;opacity:.05;pointer-events:none}
+.files-inner{position:relative}
+.table-scroll{overflow-x:auto;margin-top:8px}
+.ftable{width:100%;border-collapse:collapse;min-width:640px}
+.ftable th{
+  text-align:start;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  color:rgba(245,237,226,.6);padding:12px 16px;border-bottom:1px solid rgba(245,237,226,.16);
+}
+html[lang="fa"] .ftable th{letter-spacing:0}
+.ftable td{padding:13px 16px;border-bottom:1px solid rgba(245,237,226,.1);font-size:14.5px;vertical-align:middle}
+.ftable tr:last-child td{border-bottom:0}
+.fname{font-family:var(--font-display);font-size:13.5px;white-space:nowrap;color:rgba(245,237,226,.85)}
+html[lang="fa"] .fname{font-family:var(--fa-display)}
+.fdesc{color:rgba(245,237,226,.66)}
+.ftable .mini{color:rgba(245,237,226,.82);border-color:rgba(245,237,226,.24)}
+@media (hover:hover){
+  .ftable .mini:hover{color:var(--navy);background:var(--linen);border-color:var(--linen)}
+}
+.ftable .acts{display:flex;gap:8px}
+.fonts-grid{--od-gap:20px;display:grid;gap:var(--od-gap);grid-template-columns:repeat(3,1fr);margin-top:56px}
+.fam{background:rgba(245,237,226,.05);border:1px solid rgba(245,237,226,.14);border-radius:var(--radius-lg);padding:24px}
+.fam-t{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
+.fam-t b{font-size:19px;font-weight:700}
+.fam-t span{font-size:12.5px;color:rgba(245,237,226,.6)}
+.fam .glyph{font-size:44px;margin:4px 0 14px;font-weight:700}
+.fam.fa .glyph{font-family:var(--fa-display)}
+.fam.en .glyph{font-family:var(--font-display)}
+.frow{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:9px 0;border-bottom:1px solid rgba(245,237,226,.1);font-size:13.5px;
+}
+.frow:last-child{border-bottom:0}
+.frow span{color:rgba(245,237,226,.78);white-space:nowrap}
+.frow a{
+  color:var(--gold);text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;
+  padding:4px 8px;border-radius:6px;transition:background-color .18s ease-out;
+}
+@media (hover:hover){.frow a:hover{background:rgba(184,149,85,.14)}}
+.fonts-note{margin-top:24px;font-size:13.5px;color:rgba(245,237,226,.6)}
+
+/* ---------- footer ---------- */
+footer{padding:56px 0 48px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot small{color:var(--ink-muted);font-size:13.5px}
+.foot img{height:20px;width:auto;opacity:.85}
+.foot a{color:var(--gold);text-decoration:none;font-size:13.5px;font-weight:500}
+.foot a:focus-visible{outline-color:var(--navy)}
+
+/* ---------- toast ---------- */
+#toast{
+  position:fixed;bottom:28px;left:50%;transform:translate(-50%,16px);z-index:80;
+  background:var(--navy);color:var(--linen);border:1px solid rgba(245,237,226,.2);
+  padding:12px 22px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;
+  transition:opacity .25s ease-out, transform .25s ease-out;max-width:min(92vw,480px);text-align:center;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast.err{border-color:var(--gold)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .38s ease-out, transform .38s ease-out;transition-delay:var(--d,0ms)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1024px){
+  .pal-grid{grid-template-columns:repeat(3,1fr)}
+  .combos{grid-template-columns:repeat(2,1fr)}
+  .fonts-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .anatomy-grid,.typo-grid,.usage-grid{grid-template-columns:1fr}
+  .an-art{min-height:340px}
+  .an-art .an-mark{height:240px}
+  .sec{padding:72px 0}
+  .on-dark{padding:72px 0}
+}
+@media (max-width:560px){
+  .pal-grid{grid-template-columns:repeat(2,1fr)}
+  .fonts-grid{grid-template-columns:1fr}
+  .dodont{grid-template-columns:1fr}
+  .cover-meta{flex-wrap:wrap;gap:24px;justify-content:center}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat-v{font-size:30px}
+  .wrap{padding-inline:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap nav-inner">
+    <a class="nav-brand" href="#cover" aria-label="OSAJ">
+      <img src="assets/svg/osaj-wordmark.svg" alt="OSAJ" width="166.43" height="67.36">
+    </a>
+    <div class="nav-links">
+      <a href="#overview" data-i18n="nav_overview">Overview</a>
+      <a href="#suite" data-i18n="nav_suite">Logos</a>
+      <a href="#anatomy" data-i18n="nav_anatomy">Anatomy</a>
+      <a href="#typography" data-i18n="nav_type">Typography</a>
+      <a href="#palette" data-i18n="nav_palette">Colors</a>
+      <a href="#usage" data-i18n="nav_usage">Usage</a>
+      <a href="#files" data-i18n="nav_files">Files</a>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="fa" aria-pressed="false">فا</button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- ═══════════ COVER ═══════════ -->
+  <header class="cover" id="cover">
+    <div class="wrap">
+      <img class="cover-mark reveal" src="assets/svg/osaj-logo-emblem-latin.svg" alt="OSAJ emblem lockup" width="93.97" height="188.22">
+      <span class="kicker reveal" style="--d:60ms" data-i18n="cover_kicker">Brand Identity Handoff</span>
+      <h1 class="reveal" style="--d:120ms" data-i18n="cover_title">OSAJ Brand Guidelines</h1>
+      <p class="cover-tagline reveal" style="--d:180ms" data-i18n="cover_tagline">Place · Emergence · Convergence</p>
+      <div class="cover-meta reveal" style="--d:240ms">
+        <div class="od-stat"><span class="stat-l" data-i18n="m_client">Client</span><span class="stat-v" data-i18n="m_client_v">OSAJ Consultancy</span></div>
+        <div class="od-stat"><span class="stat-l" data-i18n="m_version">Version</span><span class="stat-v">1.0</span></div>
+        <div class="od-stat"><span class="stat-l" data-i18n="m_date">Delivery</span><span class="stat-v" data-i18n="m_date_v">October 2026</span></div>
+      </div>
+      <a class="scroll-cue" href="#overview">
+        <span data-i18n="scroll">Scroll</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ═══════════ OVERVIEW ═══════════ -->
+  <section class="sec" id="overview">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="ov_kicker">01 — Overview</span>
+        <h2 data-i18n="ov_title">Overview</h2>
+        <p class="sec-lead" data-i18n="ov_lead">OSAJ's mark distills three ideas — place, emergence, and convergence — into one identity. This page hands over every approved asset: the logo suite, the anatomy of the mark, typography, the color system, usage rules, and downloadable files.</p>
+      </div>
+      <div class="od-grid stats">
+        <div class="od-stat reveal"><span class="stat-v">8</span><span class="stat-l" data-i18n="stat1">Mark versions</span></div>
+        <div class="od-stat reveal" style="--d:50ms"><span class="stat-v">3</span><span class="stat-l" data-i18n="stat2">Brand patterns</span></div>
+        <div class="od-stat reveal" style="--d:100ms"><span class="stat-v">5</span><span class="stat-l" data-i18n="stat3">Brand colors</span></div>
+        <div class="od-stat reveal" style="--d:150ms"><span class="stat-v">4</span><span class="stat-l" data-i18n="stat4">Type families</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ LOGO SUITE ═══════════ -->
+  <section class="sec" id="suite">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="su_kicker">02 — Logo Suite</span>
+        <h2 data-i18n="su_title">Logo Suite</h2>
+        <p class="sec-lead" data-i18n="su_lead">Every approved version of the mark, ready to preview and download. Each file exports to PNG at twice its size, right in your browser.</p>
+      </div>
+
+      <h3 class="group-h" data-i18n="g_lockups">Logo lockups</h3>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-logo-extended.svg" data-alt="n_extended" alt="Extended lockup" width="174.72" height="136.5" style="aspect-ratio:174.72/136.5"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_extended">Extended lockup</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-logo-extended.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-logo-extended.svg" data-base="osaj-logo-extended" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" style="--d:50ms">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-logo-horizontal.svg" data-alt="n_horizontal" alt="Horizontal lockup" width="151.16" height="102.44" style="aspect-ratio:151.16/102.44"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_horizontal">Horizontal lockup</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-logo-horizontal.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-logo-horizontal.svg" data-base="osaj-logo-horizontal" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" style="--d:100ms">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-logo-stacked.svg" data-alt="n_stacked" alt="Stacked lockup" width="87.23" height="251.34" style="aspect-ratio:87.23/251.34"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_stacked">Stacked lockup</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-logo-stacked.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-logo-stacked.svg" data-base="osaj-logo-stacked" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" style="--d:150ms">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-logo-emblem-latin.svg" data-alt="n_emblem" alt="Emblem with Latin wordmark" width="93.97" height="188.22" style="aspect-ratio:93.97/188.22"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_emblem">Emblem — Latin</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-logo-emblem-latin.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-logo-emblem-latin.svg" data-base="osaj-logo-emblem-latin" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="group-h" data-i18n="g_wordmarks">Wordmarks</h3>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-wordmark.svg" data-alt="n_wordmark" alt="Latin wordmark" width="166.43" height="67.36" style="aspect-ratio:166.43/67.36"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_wordmark">Latin wordmark</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-wordmark.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-wordmark.svg" data-base="osaj-wordmark" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card dark reveal" style="--d:50ms">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-wordmark-fa-white.svg" data-alt="n_fawhite" alt="Farsi wordmark, white" width="123.38" height="112.86" style="aspect-ratio:123.38/112.86"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_fawhite">Farsi wordmark — white</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-wordmark-fa-white.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-wordmark-fa-white.svg" data-base="osaj-wordmark-fa-white" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card dark reveal" style="--d:100ms">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-wordmark-cream.svg" data-alt="n_facream" alt="Farsi wordmark, cream" width="93.93" height="130.64" style="aspect-ratio:93.93/130.64"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_facream">Farsi wordmark — cream</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-wordmark-cream.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-wordmark-cream.svg" data-base="osaj-wordmark-cream" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card dark reveal" style="--d:150ms">
+          <div class="artbox"><img class="art" src="assets/svg/osaj-logo-stacked-fa-gold.svg" data-alt="n_fagold" alt="Farsi stacked lockup, gold and white" width="87.92" height="211.64" style="aspect-ratio:87.92/211.64"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_fagold">Stacked lockup — Farsi</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-logo-stacked-fa-gold.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-logo-stacked-fa-gold.svg" data-base="osaj-logo-stacked-fa-gold" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="group-h" data-i18n="g_patterns">Brand patterns</h3>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="artbox"><img class="art pattern" src="assets/svg/osaj-pattern-navy.svg" data-alt="n_pnavy" alt="Pattern, navy" width="255.25" height="148.87" style="aspect-ratio:255.25/148.87"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_pnavy">Pattern — navy</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-pattern-navy.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-pattern-navy.svg" data-base="osaj-pattern-navy" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" style="--d:50ms">
+          <div class="artbox"><img class="art pattern" src="assets/svg/osaj-pattern-navy-gold.svg" data-alt="n_pnavygold" alt="Pattern, navy and gold" width="255.32" height="148.87" style="aspect-ratio:255.32/148.87"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_pnavygold">Pattern — navy &amp; gold</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-pattern-navy-gold.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-pattern-navy-gold.svg" data-base="osaj-pattern-navy-gold" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+        <article class="card dark reveal" style="--d:100ms">
+          <div class="artbox"><img class="art pattern" src="assets/svg/osaj-pattern-linen.svg" data-alt="n_plinen" alt="Pattern, linen" width="255.25" height="146.6" style="aspect-ratio:255.25/146.6"></div>
+          <div class="card-foot">
+            <span class="card-name" data-i18n="n_plinen">Pattern — linen</span>
+            <div class="acts" style="display:flex;gap:8px">
+              <a class="mini" href="assets/svg/osaj-pattern-linen.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a>
+              <button class="mini" type="button" data-png="assets/svg/osaj-pattern-linen.svg" data-base="osaj-pattern-linen" data-aria="a_png" aria-label="Download PNG file">PNG</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ ANATOMY ═══════════ -->
+  <section class="sec" id="anatomy">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="an_kicker">03 — Anatomy</span>
+        <h2 data-i18n="an_title">Anatomy of the Mark</h2>
+        <p class="sec-lead" data-i18n="an_lead">The OSAJ mark brings together three ideas: place, emergence, and convergence.</p>
+      </div>
+      <div class="anatomy-grid">
+        <div class="an-art reveal">
+          <img class="bgpat" src="assets/svg/osaj-pattern-navy.svg" alt="" aria-hidden="true" width="255.25" height="148.87">
+          <img class="an-mark" src="assets/svg/osaj-logo-stacked.svg" data-alt="n_stacked" alt="Stacked lockup" width="87.23" height="251.34">
+        </div>
+        <div class="legend od-stack">
+          <div class="leg reveal">
+            <span class="num" aria-hidden="true">1</span>
+            <div class="od-stack" style="--od-gap:6px">
+              <h3 data-i18n="an1_t">Radkan Tower silhouette</h3>
+              <p data-i18n="an1_d">Permanence, knowledge, and place identity — the anchor of the mark.</p>
+            </div>
+          </div>
+          <div class="leg reveal" style="--d:60ms">
+            <span class="num" aria-hidden="true">2</span>
+            <div class="od-stack" style="--od-gap:6px">
+              <h3 data-i18n="an2_t">Eastern sunrise</h3>
+              <p data-i18n="an2_d">The revelation of hidden potential and the beginning of a new narrative.</p>
+            </div>
+          </div>
+          <div class="leg reveal" style="--d:120ms">
+            <span class="num" aria-hidden="true">3</span>
+            <div class="od-stack" style="--od-gap:6px">
+              <h3 data-i18n="an3_t">Converging lines</h3>
+              <p data-i18n="an3_d">The alignment of data, perspectives, and stakeholders within a strategic system.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ TYPOGRAPHY ═══════════ -->
+  <section class="sec" id="typography">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="ty_kicker">04 — Typography</span>
+        <h2 data-i18n="ty_title">Typography</h2>
+        <p class="sec-lead" data-i18n="ty_lead">Two bilingual pairings carry the voice: bold weights pair with regular, medium with light.</p>
+      </div>
+      <div class="typo-grid">
+        <div class="typo-panel tp-fa reveal">
+          <span class="tp-lang" data-i18n="ty_fa">Farsi</span>
+          <div class="glyph" aria-hidden="true">آ</div>
+          <div class="tp-roles">
+            <div class="tp-role"><span data-i18n="ty_display">Titles &amp; headings</span><b>Doran</b></div>
+            <div class="tp-role"><span data-i18n="ty_body">Body copy &amp; captions</span><b>Estedad</b></div>
+          </div>
+          <div class="tp-fam">
+            <span class="tp-fam-t">Doran</span>
+            <div class="tp-weights">
+              <a class="chip" href="assets/fonts/Doran-Thin.woff" download data-aria="a_font" aria-label="Download font file">Thin 100</a>
+              <a class="chip" href="assets/fonts/Doran-Light.woff" download data-aria="a_font" aria-label="Download font file">Light 300</a>
+              <a class="chip" href="assets/fonts/Doran-Regular.woff" download data-aria="a_font" aria-label="Download font file">Regular 400</a>
+              <a class="chip" href="assets/fonts/Doran-Medium.woff" download data-aria="a_font" aria-label="Download font file">Medium 500</a>
+              <a class="chip" href="assets/fonts/Doran-Bold.woff" download data-aria="a_font" aria-label="Download font file">Bold 700</a>
+              <a class="chip" href="assets/fonts/Doran-ExtraBold.woff" download data-aria="a_font" aria-label="Download font file">ExtraBold 800</a>
+            </div>
+          </div>
+          <div class="tp-fam">
+            <span class="tp-fam-t">Estedad</span>
+            <div class="tp-weights">
+              <a class="chip" href="assets/fonts/Estedad-Thin.ttf" download data-aria="a_font" aria-label="Download font file">Thin 100</a>
+              <a class="chip" href="assets/fonts/Estedad-ExtraLight.ttf" download data-aria="a_font" aria-label="Download font file">ExtraLight 200</a>
+              <a class="chip" href="assets/fonts/Estedad-Light.ttf" download data-aria="a_font" aria-label="Download font file">Light 300</a>
+              <a class="chip" href="assets/fonts/Estedad-Regular.ttf" download data-aria="a_font" aria-label="Download font file">Regular 400</a>
+              <a class="chip" href="assets/fonts/Estedad-Medium.ttf" download data-aria="a_font" aria-label="Download font file">Medium 500</a>
+              <a class="chip" href="assets/fonts/Estedad-SemiBold.ttf" download data-aria="a_font" aria-label="Download font file">SemiBold 600</a>
+              <a class="chip" href="assets/fonts/Estedad-Bold.ttf" download data-aria="a_font" aria-label="Download font file">Bold 700</a>
+              <a class="chip" href="assets/fonts/Estedad-ExtraBold.ttf" download data-aria="a_font" aria-label="Download font file">ExtraBold 800</a>
+              <a class="chip" href="assets/fonts/Estedad-Black.ttf" download data-aria="a_font" aria-label="Download font file">Black 900</a>
+            </div>
+          </div>
+          <p class="pair-note" data-i18n="ty_pair_fa">Doran for titles — Estedad for text.</p>
+        </div>
+        <div class="typo-panel tp-en reveal" style="--d:60ms">
+          <span class="tp-lang" data-i18n="ty_en">English</span>
+          <div class="glyph" aria-hidden="true">Aa</div>
+          <div class="tp-roles">
+            <div class="tp-role"><span data-i18n="ty_display">Titles &amp; headings</span><b>Roboto</b></div>
+            <div class="tp-role"><span data-i18n="ty_body">Body copy &amp; captions</span><b>Inter Tight</b></div>
+          </div>
+          <div class="tp-fam">
+            <span class="tp-fam-t">Roboto</span>
+            <div class="tp-weights">
+              <a class="chip" href="assets/fonts/Roboto-500.woff2" download data-aria="a_font" aria-label="Download font file">Medium 500</a>
+              <a class="chip" href="assets/fonts/Roboto-700.woff2" download data-aria="a_font" aria-label="Download font file">Bold 700</a>
+            </div>
+          </div>
+          <div class="tp-fam">
+            <span class="tp-fam-t">Inter Tight</span>
+            <div class="tp-weights">
+              <a class="chip" href="assets/fonts/InterTight-300.woff2" download data-aria="a_font" aria-label="Download font file">Light 300</a>
+              <a class="chip" href="assets/fonts/InterTight-400.woff2" download data-aria="a_font" aria-label="Download font file">Regular 400</a>
+              <a class="chip" href="assets/fonts/InterTight-500.woff2" download data-aria="a_font" aria-label="Download font file">Medium 500</a>
+              <a class="chip" href="assets/fonts/InterTight-700.woff2" download data-aria="a_font" aria-label="Download font file">Bold 700</a>
+            </div>
+          </div>
+          <p class="pair-note" data-i18n="ty_pair_en">Roboto for titles — Inter Tight for text.</p>
+        </div>
+      </div>
+      <div class="scale reveal">
+        <table>
+          <thead>
+            <tr><th data-i18n="th_level">Level</th><th data-i18n="th_size">Size</th><th data-i18n="th_weight">Weight</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="lv t-h1" data-i18n="s_h1">H1 — Display</td><td class="od-nowrap">40 px</td><td data-i18n="w_bold">Bold</td></tr>
+            <tr><td class="lv t-h2" data-i18n="s_h2">H2 — Section</td><td class="od-nowrap">32 px</td><td data-i18n="w_bold">Bold</td></tr>
+            <tr><td class="lv t-h3" data-i18n="s_h3">H3 — Heading</td><td class="od-nowrap">25 px</td><td data-i18n="w_bold">Bold</td></tr>
+            <tr><td class="lv t-h4" data-i18n="s_h4">H4 — Subheading</td><td class="od-nowrap">20 px</td><td data-i18n="w_medium">Medium</td></tr>
+            <tr><td class="lv t-body" data-i18n="s_body">Body</td><td class="od-nowrap">16 px</td><td data-i18n="w_regular">Regular</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PALETTE ═══════════ -->
+  <section class="sec" id="palette">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="pl_kicker">05 — Color System</span>
+        <h2 data-i18n="pl_title">Color System</h2>
+        <p class="sec-lead" data-i18n="pl_lead">Click any hex to copy it. The balance bar and pairings below are the approved starting points for layouts.</p>
+      </div>
+      <div class="pal-grid">
+        <div class="color-card reveal">
+          <div class="swatch" style="background:#1F2F49" role="img" data-alt="c_navy" aria-label="Navy swatch"></div>
+          <div class="sw-body">
+            <span class="sw-name" data-i18n="c_navy">Navy</span>
+            <button class="hexbtn" type="button" data-copy="#1F2F49" data-aria="a_copy" aria-label="Copy Navy hex">
+              <span class="od-nowrap">#1F2F49</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <div class="spec"><span>RGB</span><b><span class="od-nowrap">31 47 73</span></b></div>
+            <div class="spec"><span>CMYK</span><b><span class="od-nowrap">91 79 45 44</span></b></div>
+          </div>
+        </div>
+        <div class="color-card reveal" style="--d:50ms">
+          <div class="swatch" style="background:#67757E" role="img" data-alt="c_slate" aria-label="Slate swatch"></div>
+          <div class="sw-body">
+            <span class="sw-name" data-i18n="c_slate">Slate</span>
+            <button class="hexbtn" type="button" data-copy="#67757E" data-aria="a_copy" aria-label="Copy Slate hex">
+              <span class="od-nowrap">#67757E</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <div class="spec"><span>RGB</span><b><span class="od-nowrap">103 117 126</span></b></div>
+            <div class="spec"><span>CMYK</span><b><span class="od-nowrap">63 46 41 10</span></b></div>
+            <div class="spec"><span>Pantone</span><b>431 C</b></div>
+            <div class="spec"><span>RAL</span><b>7000</b></div>
+          </div>
+        </div>
+        <div class="color-card reveal" style="--d:100ms">
+          <div class="swatch" style="background:#B89555" role="img" data-alt="c_gold" aria-label="Gold swatch"></div>
+          <div class="sw-body">
+            <span class="sw-name" data-i18n="c_gold">Gold</span>
+            <button class="hexbtn" type="button" data-copy="#B89555" data-aria="a_copy" aria-label="Copy Gold hex">
+              <span class="od-nowrap">#B89555</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <div class="spec"><span>RGB</span><b><span class="od-nowrap">184 149 85</span></b></div>
+            <div class="spec"><span>CMYK</span><b><span class="od-nowrap">0 19 54 28</span></b></div>
+            <div class="spec"><span>Pantone</span><b>465 C</b></div>
+            <div class="spec"><span>RAL</span><b>1024</b></div>
+          </div>
+        </div>
+        <div class="color-card reveal" style="--d:150ms">
+          <div class="swatch" style="background:#C2B1A2" role="img" data-alt="c_khaki" aria-label="Khaki beige swatch"></div>
+          <div class="sw-body">
+            <span class="sw-name" data-i18n="c_khaki">Khaki Beige</span>
+            <button class="hexbtn" type="button" data-copy="#C2B1A2" data-aria="a_copy" aria-label="Copy Khaki Beige hex">
+              <span class="od-nowrap">#C2B1A2</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <div class="spec"><span>RGB</span><b><span class="od-nowrap">194 177 162</span></b></div>
+            <div class="spec"><span>CMYK</span><b><span class="od-nowrap">25 27 34 0</span></b></div>
+            <div class="spec"><span>Pantone</span><b>7528 C</b></div>
+            <div class="spec"><span>RAL</span><b>1019</b></div>
+          </div>
+        </div>
+        <div class="color-card reveal" style="--d:200ms">
+          <div class="swatch" style="background:#F5EDE2;border-bottom:1px solid var(--line)" role="img" data-alt="c_linen" aria-label="Linen swatch"></div>
+          <div class="sw-body">
+            <span class="sw-name" data-i18n="c_linen">Linen</span>
+            <button class="hexbtn" type="button" data-copy="#F5EDE2" data-aria="a_copy" aria-label="Copy Linen hex">
+              <span class="od-nowrap">#F5EDE2</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <div class="spec"><span>RGB</span><b><span class="od-nowrap">245 237 226</span></b></div>
+            <div class="spec"><span>CMYK</span><b><span class="od-nowrap">3 5 10 0</span></b></div>
+            <div class="spec"><span>Pantone</span><b>427 C</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bal-wrap reveal">
+        <h3 data-i18n="bal_title" style="font-size:20px">Suggested balance</h3>
+        <div class="bal" style="margin-top:16px" role="img" data-alt="bal_note" aria-label="Suggested color balance: navy 40, linen 30, gold 12, khaki 10, slate 8">
+          <i style="width:40%;background:#1F2F49"></i><i style="width:30%;background:#F5EDE2"></i><i style="width:12%;background:#B89555"></i><i style="width:10%;background:#C2B1A2"></i><i style="width:8%;background:#67757E"></i>
+        </div>
+        <div class="bal-labels" style="width:100%">
+          <span style="width:40%">Navy 40%</span><span style="width:30%">Linen 30%</span><span style="width:12%">Gold 12%</span><span style="width:10%">Khaki 10%</span><span style="width:8%">Slate 8%</span>
+        </div>
+        <p class="bal-note" data-i18n="bal_note">Dominance order for layouts: navy leads, linen lets the page breathe, gold carries the accents.</p>
+      </div>
+
+      <h3 class="group-h" data-i18n="combo_title">Approved combinations</h3>
+      <div class="combos">
+        <div class="combo reveal">
+          <div class="combo-view" style="background:#F5EDE2;color:#1F2F49">Aa</div>
+          <div class="combo-cap"><span data-i18n="combo1">Navy on Linen</span><b class="od-nowrap">#1F2F49 / #F5EDE2</b></div>
+        </div>
+        <div class="combo reveal" style="--d:50ms">
+          <div class="combo-view" style="background:#1F2F49;color:#F5EDE2">Aa</div>
+          <div class="combo-cap"><span data-i18n="combo2">Linen on Navy</span><b class="od-nowrap">#F5EDE2 / #1F2F49</b></div>
+        </div>
+        <div class="combo reveal" style="--d:100ms">
+          <div class="combo-view" style="background:#1F2F49;color:#B89555">Aa</div>
+          <div class="combo-cap"><span data-i18n="combo3">Gold on Navy</span><b class="od-nowrap">#B89555 / #1F2F49</b></div>
+        </div>
+        <div class="combo reveal" style="--d:150ms">
+          <div class="combo-view" style="background:#F5EDE2;color:#67757E">Aa</div>
+          <div class="combo-cap"><span data-i18n="combo4">Slate on Linen</span><b class="od-nowrap">#67757E / #F5EDE2</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ USAGE ═══════════ -->
+  <section class="sec" id="usage">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="us_kicker">06 — Usage</span>
+        <h2 data-i18n="us_title">Usage</h2>
+        <p class="sec-lead" data-i18n="us_lead">Guardrails that keep the mark sharp and consistent everywhere it appears.</p>
+      </div>
+      <div class="usage-grid">
+        <div class="use-panel reveal">
+          <h3 data-i18n="cs_title">Clear space</h3>
+          <p data-i18n="cs_d">Keep the dashed zone free of type, graphics, and other elements — on every side of the mark.</p>
+          <div class="cs-demo">
+            <div style="display:grid;place-items:center">
+              <img src="assets/svg/osaj-logo-stacked.svg" alt="" aria-hidden="true" width="87.23" height="251.34">
+            </div>
+            <span class="cs-tag" data-i18n="cs_tag">Clear space zone</span>
+          </div>
+        </div>
+        <div class="use-panel reveal" style="--d:60ms">
+          <h3 data-i18n="min_title">Minimum size</h3>
+          <p data-i18n="min_d">Never render the mark smaller than the sizes below — legibility collapses before then.</p>
+          <div class="min-rows">
+            <div class="min-row">
+              <div class="min-demo"><img src="assets/svg/osaj-logo-emblem-latin.svg" alt="" aria-hidden="true" style="height:36px" width="93.97" height="188.22"></div>
+              <div class="od-stack" style="--od-gap:4px">
+                <b data-i18n="min_d1">Digital — emblem at 24 px height</b>
+                <span style="color:var(--ink-muted);font-size:14px" data-i18n="min_d1h">Screens, UI, signatures</span>
+              </div>
+            </div>
+            <div class="min-row">
+              <div class="min-demo"><img src="assets/svg/osaj-logo-horizontal.svg" alt="" aria-hidden="true" style="width:64px" width="151.16" height="102.44"></div>
+              <div class="od-stack" style="--od-gap:4px">
+                <b data-i18n="min_d2">Print — lockup at 10 mm width</b>
+                <span style="color:var(--ink-muted);font-size:14px" data-i18n="min_d2h">Business cards, letterheads</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="use-panel reveal" style="margin-top:20px">
+        <h3 data-i18n="dd_title">Do's &amp; Don'ts</h3>
+        <div class="dodont">
+          <div class="dd do">
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5.5"/></svg>
+              <span data-i18n="do_t">Do</span>
+            </h4>
+            <ul>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="do1">Use the approved palette only.</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="do2">Keep the clear space around every version.</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="do3">Pair Doran &amp; Estedad for Farsi, Roboto &amp; Inter Tight for English.</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span data-i18n="do4">Recolor patterns only within the corporate colors.</span></li>
+            </ul>
+          </div>
+          <div class="dd dont">
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 9 6 6m0-6-6 6"/></svg>
+              <span data-i18n="dont_t">Don't</span>
+            </h4>
+            <ul>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span data-i18n="dont1">Stretch, distort, or rotate the mark.</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span data-i18n="dont2">Recolor the mark outside the palette.</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span data-i18n="dont3">Add shadows, outlines, or effects.</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span data-i18n="dont4">Place the mark on busy backgrounds.</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span data-i18n="dont5">Redraw or reconstruct the mark.</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="pat-note" data-i18n="pat_note">Patterns may be recolored only with the brand's corporate colors — any other modification is not permitted.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FILES ═══════════ -->
+  <section class="on-dark" id="files">
+    <div class="wrap files-wrap">
+      <img class="bgpat" src="assets/svg/osaj-pattern-linen.svg" alt="" aria-hidden="true" width="255.25" height="146.6">
+      <div class="files-inner">
+        <div class="sec-head reveal">
+          <span class="kicker" data-i18n="fl_kicker">07 — Files</span>
+          <h2 data-i18n="fl_title">Files</h2>
+          <p class="sec-lead" data-i18n="fl_lead">Everything in this handoff, in one table. SVG files export to PNG in your browser; fonts install as delivered.</p>
+        </div>
+        <div class="table-scroll reveal">
+          <table class="ftable">
+            <thead>
+              <tr><th data-i18n="th_file">File</th><th data-i18n="th_desc">Description</th><th data-i18n="th_actions">Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="fname">osaj-logo-extended.svg</td><td class="fdesc" data-i18n="d_extended">Primary lockup for wide spaces</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-logo-extended.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-logo-extended.svg" data-base="osaj-logo-extended" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-logo-horizontal.svg</td><td class="fdesc" data-i18n="d_horizontal">Headers and navigation bars</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-logo-horizontal.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-logo-horizontal.svg" data-base="osaj-logo-horizontal" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-logo-stacked.svg</td><td class="fdesc" data-i18n="d_stacked">Centered layouts and covers</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-logo-stacked.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-logo-stacked.svg" data-base="osaj-logo-stacked" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-logo-emblem-latin.svg</td><td class="fdesc" data-i18n="d_emblem">Compact emblem with Latin wordmark</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-logo-emblem-latin.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-logo-emblem-latin.svg" data-base="osaj-logo-emblem-latin" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-wordmark.svg</td><td class="fdesc" data-i18n="d_wordmark">Latin wordmark alone</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-wordmark.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-wordmark.svg" data-base="osaj-wordmark" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-wordmark-fa-white.svg</td><td class="fdesc" data-i18n="d_fawhite">Farsi wordmark for dark grounds</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-wordmark-fa-white.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-wordmark-fa-white.svg" data-base="osaj-wordmark-fa-white" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-wordmark-cream.svg</td><td class="fdesc" data-i18n="d_facream">Farsi wordmark in cream</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-wordmark-cream.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-wordmark-cream.svg" data-base="osaj-wordmark-cream" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-logo-stacked-fa-gold.svg</td><td class="fdesc" data-i18n="d_fagold">Farsi stacked lockup in gold &amp; white</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-logo-stacked-fa-gold.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-logo-stacked-fa-gold.svg" data-base="osaj-logo-stacked-fa-gold" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-pattern-navy.svg</td><td class="fdesc" data-i18n="d_pnavy">Signature pattern in navy</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-pattern-navy.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-pattern-navy.svg" data-base="osaj-pattern-navy" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-pattern-navy-gold.svg</td><td class="fdesc" data-i18n="d_pnavygold">Signature pattern, navy &amp; gold</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-pattern-navy-gold.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-pattern-navy-gold.svg" data-base="osaj-pattern-navy-gold" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-pattern-linen.svg</td><td class="fdesc" data-i18n="d_plinen">Signature pattern in linen</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-pattern-linen.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-pattern-linen.svg" data-base="osaj-pattern-linen" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-color-slate.svg</td><td class="fdesc" data-i18n="d_cslate">Slate color chart — Pantone / RAL</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-color-slate.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-color-slate.svg" data-base="osaj-color-slate" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-color-gold.svg</td><td class="fdesc" data-i18n="d_cgold">Gold color chart — Pantone / RAL</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-color-gold.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-color-gold.svg" data-base="osaj-color-gold" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-color-khaki.svg</td><td class="fdesc" data-i18n="d_ckhaki">Khaki beige color chart — Pantone / RAL</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-color-khaki.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-color-khaki.svg" data-base="osaj-color-khaki" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-color-linen.svg</td><td class="fdesc" data-i18n="d_clinen">Linen color chart — Pantone / RAL</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-color-linen.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-color-linen.svg" data-base="osaj-color-linen" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-type-fa.svg</td><td class="fdesc" data-i18n="d_tfa">Farsi type system chart</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-type-fa.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-type-fa.svg" data-base="osaj-type-fa" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-type-en.svg</td><td class="fdesc" data-i18n="d_ten">English type system chart</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-type-en.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-type-en.svg" data-base="osaj-type-en" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+              <tr><td class="fname">osaj-type-scale.svg</td><td class="fdesc" data-i18n="d_tscale">Detailed type scale chart</td><td><div class="acts"><a class="mini" href="assets/svg/osaj-type-scale.svg" download data-aria="a_svg" aria-label="Download SVG file">SVG</a><button class="mini" type="button" data-png="assets/svg/osaj-type-scale.svg" data-base="osaj-type-scale" data-aria="a_png" aria-label="Download PNG file">PNG</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="fonts-grid">
+          <div class="fam fa reveal">
+            <div class="fam-t"><b>Doran</b><span data-i18n="ty_fa">Farsi</span></div>
+            <div class="glyph" aria-hidden="true">آ</div>
+            <div class="frow"><span>Thin — 100</span><a href="assets/fonts/Doran-Thin.woff" download data-aria="a_font" aria-label="Download font file">woff <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Light — 300</span><a href="assets/fonts/Doran-Light.woff" download data-aria="a_font" aria-label="Download font file">woff <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Regular — 400</span><a href="assets/fonts/Doran-Regular.woff" download data-aria="a_font" aria-label="Download font file">woff <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Medium — 500</span><a href="assets/fonts/Doran-Medium.woff" download data-aria="a_font" aria-label="Download font file">woff <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Bold — 700</span><a href="assets/fonts/Doran-Bold.woff" download data-aria="a_font" aria-label="Download font file">woff <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>ExtraBold — 800</span><a href="assets/fonts/Doran-ExtraBold.woff" download data-aria="a_font" aria-label="Download font file">woff <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+          </div>
+          <div class="fam fa reveal" style="--d:60ms">
+            <div class="fam-t"><b>Estedad</b><span data-i18n="ty_fa">Farsi</span></div>
+            <div class="glyph" aria-hidden="true">آ</div>
+            <div class="frow"><span>Thin — 100</span><a href="assets/fonts/Estedad-Thin.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>ExtraLight — 200</span><a href="assets/fonts/Estedad-ExtraLight.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Light — 300</span><a href="assets/fonts/Estedad-Light.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Regular — 400</span><a href="assets/fonts/Estedad-Regular.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Medium — 500</span><a href="assets/fonts/Estedad-Medium.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>SemiBold — 600</span><a href="assets/fonts/Estedad-SemiBold.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Bold — 700</span><a href="assets/fonts/Estedad-Bold.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>ExtraBold — 800</span><a href="assets/fonts/Estedad-ExtraBold.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Black — 900</span><a href="assets/fonts/Estedad-Black.ttf" download data-aria="a_font" aria-label="Download font file">ttf <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+          </div>
+          <div class="fam en reveal" style="--d:120ms">
+            <div class="fam-t"><b>Roboto · Inter Tight</b><span data-i18n="ty_en">English</span></div>
+            <div class="glyph" aria-hidden="true">Aa</div>
+            <div class="frow"><span>Roboto Medium — 500</span><a href="assets/fonts/Roboto-500.woff2" download data-aria="a_font" aria-label="Download font file">woff2 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Roboto Bold — 700</span><a href="assets/fonts/Roboto-700.woff2" download data-aria="a_font" aria-label="Download font file">woff2 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Inter Tight Light — 300</span><a href="assets/fonts/InterTight-300.woff2" download data-aria="a_font" aria-label="Download font file">woff2 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Inter Tight Regular — 400</span><a href="assets/fonts/InterTight-400.woff2" download data-aria="a_font" aria-label="Download font file">woff2 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Inter Tight Medium — 500</span><a href="assets/fonts/InterTight-500.woff2" download data-aria="a_font" aria-label="Download font file">woff2 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+            <div class="frow"><span>Inter Tight Bold — 700</span><a href="assets/fonts/InterTight-700.woff2" download data-aria="a_font" aria-label="Download font file">woff2 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></a></div>
+          </div>
+        </div>
+        <p class="fonts-note" data-i18n="fonts_note">Roboto &amp; Inter Tight are open-source fonts (Google Fonts). Doran &amp; Estedad are delivered with the brand.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <img src="assets/svg/osaj-wordmark.svg" alt="OSAJ" width="166.43" height="67.36">
+    <small data-i18n="foot_credit">Brand identity handoff — OSAJ Consultancy</small>
+    <a href="https://www.Osaj.ir" target="_blank" rel="noopener">www.Osaj.ir</a>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ── i18n dictionary ─────────────────────────────── */
+  var L = {
+    en: {
+      skip:'Skip to content',
+      nav_overview:'Overview', nav_suite:'Logos', nav_anatomy:'Anatomy', nav_type:'Typography',
+      nav_palette:'Colors', nav_usage:'Usage', nav_files:'Files',
+      cover_kicker:'Brand Identity Handoff', cover_title:'OSAJ Brand Guidelines',
+      cover_tagline:'Place · Emergence · Convergence',
+      m_client:'Client', m_client_v:'OSAJ Consultancy', m_version:'Version', m_date:'Delivery', m_date_v:'October 2026',
+      scroll:'Scroll',
+      ov_kicker:'01 — Overview', ov_title:'Overview',
+      ov_lead:"OSAJ's mark distills three ideas — place, emergence, and convergence — into one identity. This page hands over every approved asset: the logo suite, the anatomy of the mark, typography, the color system, usage rules, and downloadable files.",
+      stat1:'Mark versions', stat2:'Brand patterns', stat3:'Brand colors', stat4:'Type families',
+      su_kicker:'02 — Logo Suite', su_title:'Logo Suite',
+      su_lead:'Every approved version of the mark, ready to preview and download. Each file exports to PNG at twice its size, right in your browser.',
+      g_lockups:'Logo lockups', g_wordmarks:'Wordmarks', g_patterns:'Brand patterns',
+      n_extended:'Extended lockup', n_horizontal:'Horizontal lockup', n_stacked:'Stacked lockup',
+      n_emblem:'Emblem — Latin', n_wordmark:'Latin wordmark', n_fawhite:'Farsi wordmark — white',
+      n_facream:'Farsi wordmark — cream', n_fagold:'Stacked lockup — Farsi',
+      n_pnavy:'Pattern — navy', n_pnavygold:'Pattern — navy & gold', n_plinen:'Pattern — linen',
+      a_svg:'Download SVG file', a_png:'Download PNG file', a_copy:'Copy hex value', a_font:'Download font file',
+      an_kicker:'03 — Anatomy', an_title:'Anatomy of the Mark',
+      an_lead:'The OSAJ mark brings together three ideas: place, emergence, and convergence.',
+      an1_t:'Radkan Tower silhouette', an1_d:'Permanence, knowledge, and place identity — the anchor of the mark.',
+      an2_t:'Eastern sunrise', an2_d:'The revelation of hidden potential and the beginning of a new narrative.',
+      an3_t:'Converging lines', an3_d:'The alignment of data, perspectives, and stakeholders within a strategic system.',
+      ty_kicker:'04 — Typography', ty_title:'Typography',
+      ty_lead:'Two bilingual pairings carry the voice: bold weights pair with regular, medium with light.',
+      ty_fa:'Farsi', ty_en:'English', ty_display:'Titles & headings', ty_body:'Body copy & captions',
+      ty_pair_fa:'Doran for titles — Estedad for text.', ty_pair_en:'Roboto for titles — Inter Tight for text.',
+      th_level:'Level', th_size:'Size', th_weight:'Weight',
+      s_h1:'H1 — Display', s_h2:'H2 — Section', s_h3:'H3 — Heading', s_h4:'H4 — Subheading', s_body:'Body',
+      w_bold:'Bold', w_medium:'Medium', w_regular:'Regular',
+      pl_kicker:'05 — Color System', pl_title:'Color System',
+      pl_lead:'Click any hex to copy it. The balance bar and pairings below are the approved starting points for layouts.',
+      c_navy:'Navy', c_slate:'Slate', c_gold:'Gold', c_khaki:'Khaki Beige', c_linen:'Linen',
+      bal_title:'Suggested balance',
+      bal_note:'Dominance order for layouts: navy leads, linen lets the page breathe, gold carries the accents.',
+      combo_title:'Approved combinations',
+      combo1:'Navy on Linen', combo2:'Linen on Navy', combo3:'Gold on Navy', combo4:'Slate on Linen',
+      us_kicker:'06 — Usage', us_title:'Usage',
+      us_lead:'Guardrails that keep the mark sharp and consistent everywhere it appears.',
+      cs_title:'Clear space',
+      cs_d:'Keep the dashed zone free of type, graphics, and other elements — on every side of the mark.',
+      cs_tag:'Clear space zone',
+      min_title:'Minimum size',
+      min_d:'Never render the mark smaller than the sizes below — legibility collapses before then.',
+      min_d1:'Digital — emblem at 24 px height', min_d1h:'Screens, UI, signatures',
+      min_d2:'Print — lockup at 10 mm width', min_d2h:'Business cards, letterheads',
+      dd_title:"Do's & Don'ts", do_t:'Do', dont_t:"Don't",
+      do1:'Use the approved palette only.',
+      do2:'Keep the clear space around every version.',
+      do3:'Pair Doran & Estedad for Farsi, Roboto & Inter Tight for English.',
+      do4:'Recolor patterns only within the corporate colors.',
+      dont1:'Stretch, distort, or rotate the mark.',
+      dont2:'Recolor the mark outside the palette.',
+      dont3:'Add shadows, outlines, or effects.',
+      dont4:'Place the mark on busy backgrounds.',
+      dont5:'Redraw or reconstruct the mark.',
+      pat_note:"Patterns may be recolored only with the brand's corporate colors — any other modification is not permitted.",
+      fl_kicker:'07 — Files', fl_title:'Files',
+      fl_lead:'Everything in this handoff, in one table. SVG files export to PNG in your browser; fonts install as delivered.',
+      th_file:'File', th_desc:'Description', th_actions:'Actions',
+      d_extended:'Primary lockup for wide spaces', d_horizontal:'Headers and navigation bars',
+      d_stacked:'Centered layouts and covers', d_emblem:'Compact emblem with Latin wordmark',
+      d_wordmark:'Latin wordmark alone', d_fawhite:'Farsi wordmark for dark grounds',
+      d_facream:'Farsi wordmark in cream', d_fagold:'Farsi stacked lockup in gold & white',
+      d_pnavy:'Signature pattern in navy', d_pnavygold:'Signature pattern, navy & gold',
+      d_plinen:'Signature pattern in linen',
+      d_cslate:'Slate color chart — Pantone / RAL', d_cgold:'Gold color chart — Pantone / RAL',
+      d_ckhaki:'Khaki beige color chart — Pantone / RAL', d_clinen:'Linen color chart — Pantone / RAL',
+      d_tfa:'Farsi type system chart', d_ten:'English type system chart', d_tscale:'Detailed type scale chart',
+      fonts_note:'Roboto & Inter Tight are open-source fonts (Google Fonts). Doran & Estedad are delivered with the brand.',
+      t_copied:'Copied to clipboard', t_pngok:'PNG downloaded',
+      t_pngerr:'PNG export needs the page served over HTTP (e.g. GitHub Pages or a local server).',
+      foot_credit:'Brand identity handoff — OSAJ Consultancy'
+    },
+    fa: {
+      skip:'پرش به محتوا',
+      nav_overview:'نمای کلی', nav_suite:'نسخه‌های نشان', nav_anatomy:'کالبدشکافی', nav_type:'تایپوگرافی',
+      nav_palette:'رنگ‌ها', nav_usage:'اصول کاربرد', nav_files:'فایل‌ها',
+      cover_kicker:'تحویل هویت بصری', cover_title:'راهنمای هویت برند اساج',
+      cover_tagline:'مکان · پدیداری · همگرایی',
+      m_client:'کارفرما', m_client_v:'اساج', m_version:'نسخه', m_date:'تحویل', m_date_v:'اکتبر ۲۰۲۶',
+      scroll:'اسکرول',
+      ov_kicker:'۰۱ — نمای کلی', ov_title:'مرور کلی',
+      ov_lead:'نشان اساج سه ایده — مکان، پدیداری و همگرایی — را در یک هویت خلاصه می‌کند. در این صفحه همه دارایی‌های تأییدشده تحویل داده می‌شود: مجموعه نشان‌ها، کالبدشکافی نشان، تایپوگرافی، سیستم رنگ، اصول کاربرد و فایل‌های قابل دانلود.',
+      stat1:'نسخه‌های نشان', stat2:'الگوهای برند', stat3:'رنگ‌های برند', stat4:'خانواده‌های فونت',
+      su_kicker:'۰۲ — مجموعه نشان‌ها', su_title:'مجموعه نشان‌ها',
+      su_lead:'همه نسخه‌های تأییدشده نشان، آماده پیش‌نمایش و دانلود. هر فایل در همین مرورگر به PNG با دو برابر اندازه تبدیل می‌شود.',
+      g_lockups:'نشان‌های ترکیبی', g_wordmarks:'واترمارک‌ها', g_patterns:'الگوهای برند',
+      n_extended:'نشان کشیده', n_horizontal:'نشان افقی', n_stacked:'نشان عمودی',
+      n_emblem:'نشانک — لاتین', n_wordmark:'واترمارک لاتین', n_fawhite:'واترمارک فارسی — سفید',
+      n_facream:'واترمارک فارسی — کرم', n_fagold:'نشان عمودی — فارسی',
+      n_pnavy:'الگو — سرمه‌ای', n_pnavygold:'الگو — سرمه‌ای و طلایی', n_plinen:'الگو — کتان',
+      a_svg:'دانلود فایل SVG', a_png:'دانلود فایل PNG', a_copy:'کپی کد رنگ', a_font:'دانلود فایل فونت',
+      an_kicker:'۰۳ — کالبدشکافی', an_title:'کالبدشکافی نشان',
+      an_lead:'نشان اساج سه ایده را کنار هم می‌آورد: مکان، پدیداری و همگرایی.',
+      an1_t:'خطوط برج رادکان', an1_d:'ماندگاری، دانش و هویت مکانی — لنگرگاه نشان.',
+      an2_t:'طلوع خورشید شرقی', an2_d:'آشکارسازی توان نهفته و آغاز روایتی تازه.',
+      an3_t:'خطوط همگرا', an3_d:'هم‌راستایی داده‌ها، دیدگاه‌ها و ذی‌نفعان در یک نظام راهبردی.',
+      ty_kicker:'۰۴ — تایپوگرافی', ty_title:'تایپوگرافی',
+      ty_lead:'دو جفت فونت دوزبانه صدای برند را می‌سازند: وزن بولد با رگولار و مدیوم با لایت جفت می‌شود.',
+      ty_fa:'فارسی', ty_en:'انگلیسی', ty_display:'عنوان‌ها', ty_body:'متن و کپشن‌ها',
+      ty_pair_fa:'دوران برای عنوان‌ها — استعداد برای متن‌ها.', ty_pair_en:'ربوتو برای عنوان‌ها — اینتر تایت برای متن‌ها.',
+      th_level:'سطح', th_size:'اندازه', th_weight:'وزن',
+      s_h1:'H1 — تیتر اصلی', s_h2:'H2 — بخش', s_h3:'H3 — تیتر', s_h4:'H4 — زیرتیتر', s_body:'متن',
+      w_bold:'بولد', w_medium:'مدیوم', w_regular:'رگولار',
+      pl_kicker:'۰۵ — سیستم رنگ', pl_title:'سیستم رنگ',
+      pl_lead:'روی هر کد رنگ کلیک کنید تا کپی شود. نوار توازن و ترکیب‌های زیر، نقاط شروع تأییدشده برای چیدمان هستند.',
+      c_navy:'سرمه‌ای', c_slate:'اسلیت', c_gold:'طلایی', c_khaki:'بژ خاکی', c_linen:'کتان',
+      bal_title:'توازن پیشنهادی',
+      bal_note:'ترتیب سلطه در چیدمان: سرمه‌ای نقش اصلی را دارد، کتان به صفحه نفس می‌دهد و طلایی نقش تأکید را بر عهده دارد.',
+      combo_title:'ترکیب‌های تأییدشده',
+      combo1:'سرمه‌ای روی کتان', combo2:'کتان روی سرمه‌ای', combo3:'طلایی روی سرمه‌ای', combo4:'اسلیت روی کتان',
+      us_kicker:'۰۶ — اصول کاربرد', us_title:'اصول کاربرد',
+      us_lead:'این قواعد نشان را در هر جایی که ظاهر می‌شود شفاف و یکدست نگه می‌دارند.',
+      cs_title:'فضای امن',
+      cs_d:'ناحیه خط‌چین باید از متن، گرافیک و سایر عناصر خالی بماند — در همه جهات نشان.',
+      cs_tag:'ناحیه فضای امن',
+      min_title:'حداقل اندازه',
+      min_d:'نشان را هرگز کوچک‌تر از اندازه‌های زیر رندر نکنید — پیش از آن خوانایی از دست می‌رود.',
+      min_d1:'دیجیتال — نشانک با ارتفاع ۲۴ پیکسل', min_d1h:'نمایشگرها، رابط کاربری، امضا',
+      min_d2:'چاپ — نشان ترکیبی با پهنای ۱۰ میلی‌متر', min_d2h:'کارت ویزیت، سربرگ',
+      dd_title:'بایدها و نبایدها', do_t:'بایدها', dont_t:'نبایدها',
+      do1:'فقط از پالت رنگ تأییدشده استفاده کنید.',
+      do2:'فضای امن دور همه نسخه‌ها را حفظ کنید.',
+      do3:'برای فارسی دوران و استعداد، برای انگلیسی روبوتو و اینتر تایت را جفت کنید.',
+      do4:'رنگ الگوها را فقط در محدوده رنگ‌های سازمانی تغییر دهید.',
+      dont1:'نشان را نکشید، تحریف نکنید یا نچرخانید.',
+      dont2:'رنگ نشان را خارج از پالت تغییر ندهید.',
+      dont3:'سایه، خط دور یا افکت اضافه نکنید.',
+      dont4:'نشان را روی زمینه‌های شلوغ قرار ندهید.',
+      dont5:'نشان را بازترسیم یا بازسازی نکنید.',
+      pat_note:'رنگ‌بندی الگوها فقط با رنگ‌های سازمانی برند مجاز است — هرگونه تغییر دیگر مجاز نیست.',
+      fl_kicker:'۰۷ — فایل‌ها', fl_title:'فایل‌ها',
+      fl_lead:'همه اقلام این تحویل در یک جدول. فایل‌های SVG در مرورگر به PNG تبدیل می‌شوند؛ فونت‌ها به همان شکل نصب می‌شوند.',
+      th_file:'فایل', th_desc:'توضیح', th_actions:'اقدام‌ها',
+      d_extended:'نشان اصلی برای فضاهای باز', d_horizontal:'سربرگ‌ها و نوار ناوبری',
+      d_stacked:'چیدمان‌های وسط‌چین و جلدها', d_emblem:'نشانک فشرده با واترمارک لاتین',
+      d_wordmark:'واترمارک لاتین تنها', d_fawhite:'واترمارک فارسی برای زمینه تیره',
+      d_facream:'واترمارک فارسی به رنگ کرم', d_fagold:'نشان عمودی فارسی به رنگ طلایی و سفید',
+      d_pnavy:'الگوی امضا به رنگ سرمه‌ای', d_pnavygold:'الگوی امضا، سرمه‌ای و طلایی',
+      d_plinen:'الگوی امضا به رنگ کتان',
+      d_cslate:'چارت رنگ اسلیت — پنتون / رال', d_cgold:'چارت رنگ طلایی — پنتون / رال',
+      d_ckhaki:'چارت رنگ بژ خاکی — پنتون / رال', d_clinen:'چارت رنگ کتان — پنتون / رال',
+      d_tfa:'چارت سیستم تایپ فارسی', d_ten:'چارت سیستم تایپ انگلیسی', d_tscale:'چارت کامل مقیاس تایپ',
+      fonts_note:'ربوتو و اینتر تایت فونت‌های متن‌باز هستند (گوگل فونتس). دوران و استعداد همراه برند تحویل داده شده‌اند.',
+      t_copied:'در کلیپ‌بورد کپی شد', t_pngok:'فایل PNG دانلود شد',
+      t_pngerr:'برای خروجی PNG صفحه را روی سرور باز کنید (مثل GitHub Pages یا سرور محلی).',
+      foot_credit:'تحویل هویت بصری — اساج'
+    }
+  };
+
+  var LS = 'osaj-lang';
+  var root = document.documentElement;
+
+  function lang(){ return root.getAttribute('lang') === 'fa' ? 'fa' : 'en'; }
+  function t(key){ return (L[lang()] && L[lang()][key]) || L.en[key] || key; }
+
+  function applyLang(next){
+    root.setAttribute('lang', next);
+    root.setAttribute('dir', next === 'fa' ? 'rtl' : 'ltr');
+    var dict = L[next] || L.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if (dict[key] != null) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-aria]').forEach(function(el){
+      var key = el.getAttribute('data-aria');
+      if (dict[key] != null) el.setAttribute('aria-label', dict[key]);
+    });
+    document.querySelectorAll('[data-alt]').forEach(function(el){
+      var key = el.getAttribute('data-alt');
+      if (dict[key] != null) el.setAttribute('alt', dict[key]);
+    });
+    document.querySelectorAll('.lang button').forEach(function(b){
+      var on = b.getAttribute('data-lang') === next;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    try { localStorage.setItem(LS, next); } catch(_) {}
+  }
+
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem(LS); } catch(_) {}
+  if (saved === 'fa' || saved === 'en') applyLang(saved);
+
+  /* ── toast ───────────────────────────────────────── */
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(msg, isErr){
+    toast.textContent = msg;
+    toast.classList.toggle('err', !!isErr);
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+
+  /* ── copy hex ────────────────────────────────────── */
+  function copyText(text){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(res, rej){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy') ? res() : rej(new Error('copy')); }
+      catch(e){ rej(e); }
+      document.body.removeChild(ta);
+    });
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var hex = btn.getAttribute('data-copy');
+      copyText(hex).then(function(){
+        showToast('<bdi dir="ltr">' + hex + '</bdi> — ' + t('t_copied'));
+      }).catch(function(){
+        showToast(t('t_copied'));
+      });
+    });
+  });
+
+  /* ── SVG → PNG export ────────────────────────────── */
+  function downloadPng(src, base){
+    fetch(src).then(function(r){ return r.text(); }).then(function(txt){
+      var vb = txt.match(/viewBox="([\d.\s+-]+)"/);
+      var w = 0, h = 0;
+      if (vb) {
+        var p = vb[1].trim().split(/[\s,]+/).map(Number);
+        w = p[2]; h = p[3];
+      }
+      if (!w || !h) {
+        var wm = txt.match(/<svg[^>]*\swidth="([\d.]+)/);
+        var hm = txt.match(/<svg[^>]*\sheight="([\d.]+)/);
+        if (wm) w = parseFloat(wm[1]);
+        if (hm) h = parseFloat(hm[1]);
+      }
+      if (!w || !h) { w = 512; h = 512; }
+      if (!/<svg[^>]*\swidth=/.test(txt)) {
+        txt = txt.replace(/<svg/i, '<svg width="' + w + '" height="' + h + '"');
+      }
+      var url = URL.createObjectURL(new Blob([txt], { type: 'image/svg+xml;charset=utf-8' }));
+      var img = new Image();
+      img.onload = function(){
+        var scale = 2;
+        var c = document.createElement('canvas');
+        c.width = Math.round(w * scale);
+        c.height = Math.round(h * scale);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function(blob){
+          if (!blob) { showToast(t('t_pngerr'), true); return; }
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = base + '.png';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+          showToast(t('t_pngok'));
+        }, 'image/png');
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); showToast(t('t_pngerr'), true); };
+      img.src = url;
+    }).catch(function(){ showToast(t('t_pngerr'), true); });
+  }
+  document.querySelectorAll('[data-png]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      downloadPng(btn.getAttribute('data-png'), btn.getAttribute('data-base'));
+    });
+  });
+
+  /* ── reveal on scroll ────────────────────────────── */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ── sticky nav state ────────────────────────────── */
+  var nav = document.getElementById('nav');
+  function navState(){ nav.classList.toggle('scrolled', window.scrollY > 10); }
+  window.addEventListener('scroll', navState, { passive: true });
+  navState();
+})();
+</script>
+</body>
+</html>

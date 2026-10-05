@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96.48 78.53">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: .1px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8 {
+        fill: #231f20;
+      }
+
+      .cls-3, .cls-9 {
+        font-family: HelveticaNowDisplay-Regular, 'Helvetica Now Display';
+        font-size: 9.55px;
+      }
+
+      .cls-4 {
+        font-family: HelveticaNeue-UltraLight, 'Helvetica Neue';
+        font-size: 5.89px;
+        font-weight: 100;
+      }
+
+      .cls-10, .cls-6 {
+        font-size: 4.57px;
+      }
+
+      .cls-10, .cls-7 {
+        font-family: HelveticaNowDisplay-Light, 'Helvetica Now Display';
+        font-weight: 300;
+      }
+
+      .cls-6, .cls-8 {
+        font-family: HelveticaNowDisplay-Thin, 'Helvetica Now Display';
+        font-weight: 200;
+      }
+
+      .cls-7 {
+        font-size: 15px;
+      }
+
+      .cls-8 {
+        font-size: 5px;
+      }
+
+      .cls-2 {
+        stroke-width: .15px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <text class="cls-7" transform="translate(55.49 12.84)"><tspan x="0" y="0">LINEN</tspan></text>
+      <text class="cls-5" transform="translate(.05 33.06)"><tspan class="cls-9"><tspan x="0" y="0">PANTONE</tspan></tspan><tspan class="cls-10"><tspan x="-.02" y="5.23">RECOMMENDED</tspan></tspan></text>
+      <text class="cls-3" transform="translate(78 33.96)"><tspan x="0" y="0">HEX</tspan></text>
+      <text class="cls-5" transform="translate(.05 59.05)"><tspan class="cls-9"><tspan x="0" y="0">RAL</tspan></tspan><tspan class="cls-10"><tspan x="-.02" y="5.23">RECOMMENDED</tspan></tspan></text>
+      <text class="cls-6" transform="translate(76.3 39.61)"><tspan x="0" y="0">#F</tspan><tspan x="5.16" y="0">5</tspan><tspan x="7.7" y="0">EDE</tspan><tspan x="15.96" y="0">2</tspan></text>
+      <line class="cls-2" x1="0" y1="48.8" x2="43.24" y2="48.8"/>
+      <line class="cls-2" x1="0" y1="22.33" x2="43.24" y2="22.33"/>
+      <line class="cls-2" x1="52.49" y1="22.33" x2="95.73" y2="22.33"/>
+      <line class="cls-2" x1="0" y1="78.46" x2="43.24" y2="78.46"/>
+      <line class="cls-2" x1="52.49" y1="78.46" x2="95.73" y2="78.46"/>
+      <text class="cls-8" transform="translate(.67 71.2)"><tspan x="0" y="0">RAL </tspan><tspan x="9.99" y="0">05</tspan><tspan x="15.54" y="0"> </tspan><tspan x="16.73" y="0">93</tspan><tspan x="22.33" y="0"> </tspan><tspan x="23.51" y="0">080</tspan><tspan x="0" y="4.5">MILK STAR WHITE</tspan></text>
+      <text class="cls-6" transform="translate(.34 44.78)"><tspan x="0" y="0">PANTONE </tspan><tspan x="20.75" y="0">427</tspan><tspan x="27.83" y="0" xml:space="preserve"> C</tspan></text>
+      <g>
+        <text class="cls-4" transform="translate(74.3 50.33)"><tspan x="0" y="0">C </tspan><tspan x="0" y="7.07" xml:space="preserve">M  </tspan><tspan x="0" y="14.14">Y </tspan><tspan x="0" y="21.21">K </tspan></text>
+        <text class="cls-4" transform="translate(93.01 50.33)"><tspan x="0" y="0">3</tspan><tspan x="0" y="7.07">5</tspan><tspan x="-3.27" y="14.14">10</tspan><tspan x="0" y="21.21">0</tspan></text>
+        <line class="cls-1" x1="81.42" y1="48.8" x2="86.76" y2="48.8"/>
+        <line class="cls-1" x1="81.42" y1="55.84" x2="86.76" y2="55.84"/>
+        <line class="cls-1" x1="81.42" y1="62.89" x2="86.76" y2="62.89"/>
+        <line class="cls-1" x1="81.42" y1="69.93" x2="86.76" y2="69.93"/>
+      </g>
+    </g>
+  </g>
+</svg>
